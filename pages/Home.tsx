@@ -171,10 +171,38 @@ export const Home: React.FC<HomeProps> = ({ setPage }) => {
             </div>
           </div>
         </div>
-      </section >
+      </section>
+
+      {/* End-to-End Solution Section */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left: Diagram Image */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-blue-100/50 rounded-3xl transform rotate-3 -z-10 blur-xl opacity-60 group-hover:rotate-6 transition-transform duration-500"></div>
+              <img
+                src="/image.png"
+                alt="End-to-End Microsoft 365 Solution Diagram"
+                className="w-full h-auto object-contain relative z-10 transform transition-transform duration-500 hover:scale-[1.02]"
+              />
+            </div>
+
+            {/* Right: Content */}
+            <div className="space-y-8">
+              <h2 className="text-4xl lg:text-5xl font-black text-[#0A1B3D] leading-[1.1]">
+                The End-to-<br className="hidden lg:block" />End Solution
+              </h2>
+              <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full"></div>
+              <p className="text-lg text-slate-600 leading-relaxed font-medium">
+                Our offering encompasses every aspect of your Microsoft365 workspace. This includes not only the licenses for all necessary products but also dedicated IT services for seamless implementation and ongoing support, coupled with robust security measures to safeguard your data.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Solutions / Features Grid */}
-      < section className="py-24 bg-slate-50 border-y border-slate-100" >
+      <section className="py-24 bg-slate-50 border-y border-slate-100">
         <div className="max-w-[1200px] mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
             <h2 className="text-4xl font-bold text-[#0A1B3D]">Your Modern Workspace, Reimagined</h2>
