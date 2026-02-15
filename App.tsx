@@ -28,7 +28,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar currentPage={currentPage} setPage={setCurrentPage} />
+      <Navbar currentPage={currentPage} setPage={setCurrentPage} isHomePage={currentPage === 'HOME'} />
       <main className="flex-grow">
         {renderPage()}
       </main>

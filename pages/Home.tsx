@@ -1,12 +1,12 @@
 
-import React from 'react';
-import { 
-  ShieldCheck, 
-  BarChart3, 
-  CheckCircle2, 
-  Zap, 
-  Shield, 
-  Users, 
+import React, { useState } from 'react';
+import {
+  ShieldCheck,
+  BarChart3,
+  CheckCircle2,
+  Zap,
+  Shield,
+  Users,
   ArrowRight,
   Activity,
   Lock,
@@ -20,110 +20,151 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ setPage }) => {
+  const [currentVideo, setCurrentVideo] = useState('/vid1.mp4');
+
   return (
-    <div className="pt-24 bg-white">
+    <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-white pt-16 pb-24 lg:pt-24 lg:pb-32">
-        <div className="max-w-[1200px] mx-auto px-4 md:px-6">
+      <section className="relative h-screen w-full flex items-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            key={currentVideo}
+            autoPlay
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            onEnded={() => setCurrentVideo(prev => prev === '/vid1.mp4' ? '/vid2.mp4' : '/vid1.mp4')}
+          >
+            <source src={currentVideo} type="video/mp4" />
+          </video>
+          {/* Gradient Overlay for Readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A1B3D]/95 via-[#0A1B3D]/80 to-[#0A1B3D]/60 z-10"></div>
+        </div>
+
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6 relative z-20 w-full py-20">
           <div className="grid lg:grid-cols-12 gap-16 items-center">
             {/* Left Column: Content */}
-            <div className="lg:col-span-6 space-y-8">
-              <div className="inline-flex items-center space-x-2 px-3 py-1.5 bg-blue-50 border border-blue-100 rounded-full">
-                <ShieldCheck className="w-4 h-4 text-[#0056D2]" />
-                <span className="text-[11px] font-bold text-[#0056D2] uppercase tracking-wider">Verified Microsoft Gold Partner</span>
+            <div className="lg:col-span-7 space-y-8">
+              <div className="inline-flex items-center space-x-2 px-3 py-1.5 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full">
+                <ShieldCheck className="w-4 h-4 text-blue-400" />
+                <span className="text-[11px] font-bold text-blue-100 uppercase tracking-wider">Verified Microsoft Gold Partner</span>
               </div>
-              
-              <h1 className="text-6xl lg:text-[72px] font-bold text-[#0A1B3D] leading-[1.05] tracking-tight">
+
+              <h1 className="text-5xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
                 We Manage, Secure <br />
-                & Optimize Your <br />
-                <span className="text-[#0056D2]">Microsoft Environment</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                  & Optimize Your
+                </span> <br />
+                Microsoft Cloud
               </h1>
-              
-              <p className="text-lg text-slate-500 leading-relaxed max-w-xl">
+
+              <p className="text-lg text-blue-100/80 leading-relaxed max-w-xl">
                 From licensing and migration to enterprise-grade security and proactive support, we ensure your modern workspace is always running at peak efficiency.
               </p>
-              
-              <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <Button size="lg" className="w-full sm:w-auto px-10 py-4" onClick={() => setPage('CONTACT')}>
+
+              <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                <Button size="lg" className="w-full sm:w-auto px-8 py-6 text-lg bg-[#0056D2] hover:bg-[#0041A3] border-none shadow-lg shadow-blue-900/50" onClick={() => setPage('CONTACT')}>
                   Request a Consultation
                 </Button>
-                <Button variant="outline" size="lg" className="w-full sm:w-auto px-10 py-4" onClick={() => setPage('SERVICES')}>
+                <Button size="lg" className="w-full sm:w-auto px-8 py-6 text-lg bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white hover:text-[#0056D2] transition-colors shadow-lg" onClick={() => setPage('SERVICES')}>
                   Explore Services
                 </Button>
               </div>
             </div>
 
-            {/* Right Column: Dashboard Visual */}
-            <div className="lg:col-span-6 relative">
-              <div className="relative z-10 bg-white rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] border border-slate-100 p-8 transform hover:scale-[1.01] transition-transform duration-500">
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Dashboard Cards */}
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="bg-slate-50/50 rounded-xl p-6 border border-slate-100/50 flex flex-col items-center justify-center space-y-3">
-                      <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
-                        <BarChart3 className={`w-5 h-5 ${i % 2 === 0 ? 'text-[#0056D2]' : 'text-slate-300'}`} />
-                      </div>
-                      <div className="h-1.5 w-16 bg-slate-200 rounded-full overflow-hidden">
-                        <div className={`h-full bg-[#0056D2] ${i === 1 ? 'w-2/3' : i === 2 ? 'w-full' : i === 3 ? 'w-1/2' : 'w-3/4'}`} />
-                      </div>
-                    </div>
-                  ))}
+            {/* Right Column: Glassmorphic Dashboard Visual */}
+            <div className="lg:col-span-5 relative hidden lg:block">
+              <div className="relative z-10 bg-white/5 backdrop-blur-md rounded-3xl shadow-2xl border border-white/10 p-6 transform hover:scale-[1.02] transition-transform duration-500 group">
+                {/* Header of Fake Dashboard */}
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
+                  </div>
+                  <div className="px-3 py-1 rounded-full bg-black/20 text-[10px] text-white/60 font-mono">
+                    security_monitor_v2.exe
+                  </div>
                 </div>
 
-                {/* Status Bar */}
-                <div className="mt-8 bg-[#F0F7FF] border border-[#D4E8FF] rounded-xl p-5 flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center border border-[#D4E8FF] shadow-sm">
-                      <ShieldCheck className="text-[#0056D2] w-5 h-5" />
+                <div className="space-y-4">
+                  {/* Metric Card 1 */}
+                  <div className="bg-black/20 rounded-xl p-4 border border-white/5 flex items-center justify-between group-hover:bg-black/30 transition-colors">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-blue-500/20 rounded-lg">
+                        <Activity className="text-blue-400 w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-blue-200">System Health</p>
+                        <p className="text-sm font-bold text-white">Optimal (98%)</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-[#0056D2] uppercase tracking-widest">Active Security</p>
-                      <p className="text-sm font-bold text-[#0A1B3D]">99.9% Infrastructure Uptime</p>
+                    <CheckCircle2 className="w-5 h-5 text-green-400" />
+                  </div>
+
+                  {/* Metric Card 2 */}
+                  <div className="bg-black/20 rounded-xl p-4 border border-white/5 flex items-center justify-between group-hover:bg-black/30 transition-colors">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-purple-500/20 rounded-lg">
+                        <Shield className="text-purple-400 w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-blue-200">Threats Blocked</p>
+                        <p className="text-sm font-bold text-white">0 Detected</p>
+                      </div>
+                    </div>
+                    <div className="h-2 w-16 bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full bg-green-400 w-full animate-pulse"></div>
                     </div>
                   </div>
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3].map((u) => (
-                      <div key={u} className="w-6 h-6 rounded-full bg-white border-2 border-[#F0F7FF] flex items-center justify-center text-[8px] font-bold text-slate-400">
-                        U{u}
-                      </div>
-                    ))}
+
+                  {/* Chart Visual */}
+                  <div className="pt-4 mt-2">
+                    <div className="flex items-end justify-between space-x-2 h-24">
+                      {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
+                        <div key={i} className="w-full bg-blue-500/20 rounded-t-sm relative overflow-hidden group-hover:bg-blue-500/30 transition-all" style={{ height: `${h}%` }}>
+                          <div className="absolute bottom-0 left-0 w-full bg-blue-400/80 h-1"></div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-              
-              {/* Decorative Glow */}
-              <div className="absolute -top-10 -right-10 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-40 -z-0"></div>
-              <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-slate-100 rounded-full blur-3xl opacity-30 -z-0"></div>
+
+              {/* Decorative Glows */}
+              <div className="absolute -top-10 -right-10 w-64 h-64 bg-blue-500 rounded-full blur-[100px] opacity-20 -z-10 animate-pulse"></div>
+              <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-purple-500 rounded-full blur-[80px] opacity-20 -z-10"></div>
             </div>
           </div>
 
-          {/* Trust Metrics Footer */}
-          <div className="mt-24 pt-10 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          {/* Trust Metrics Footer - Redesigned for Dark Background */}
+          <div className="mt-24 pt-10 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="flex items-center space-x-3 group cursor-default">
-              <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
-                <Zap className="w-5 h-5 text-[#0056D2]" />
+              <div className="p-2 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors backdrop-blur-sm">
+                <Zap className="w-5 h-5 text-blue-300" />
               </div>
               <div>
-                <p className="text-sm font-bold text-[#0A1B3D]">Top 1% Most Responsive</p>
-                <p className="text-xs text-slate-400 font-medium">Global Partner Network</p>
+                <p className="text-sm font-bold text-white">Top 1% Most Responsive</p>
+                <p className="text-xs text-blue-200/70 font-medium">Global Partner Network</p>
               </div>
             </div>
             <div className="flex items-center space-x-3 group cursor-default">
-              <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
-                <Shield className="w-5 h-5 text-[#0056D2]" />
+              <div className="p-2 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors backdrop-blur-sm">
+                <Shield className="w-5 h-5 text-blue-300" />
               </div>
               <div>
-                <p className="text-sm font-bold text-[#0A1B3D]">18 Years Gold Partner</p>
-                <p className="text-xs text-slate-400 font-medium">Deep Microsoft Expertise</p>
+                <p className="text-sm font-bold text-white">18 Years Gold Partner</p>
+                <p className="text-xs text-blue-200/70 font-medium">Deep Microsoft Expertise</p>
               </div>
             </div>
             <div className="flex items-center space-x-3 group cursor-default">
-              <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
-                <Users className="w-5 h-5 text-[#0056D2]" />
+              <div className="p-2 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors backdrop-blur-sm">
+                <Users className="w-5 h-5 text-blue-300" />
               </div>
               <div>
-                <p className="text-sm font-bold text-[#0A1B3D]">5,620 Clients Served</p>
-                <p className="text-xs text-slate-400 font-medium">Proven Enterprise Success</p>
+                <p className="text-sm font-bold text-white">5,620 Clients Served</p>
+                <p className="text-xs text-blue-200/70 font-medium">Proven Enterprise Success</p>
               </div>
             </div>
           </div>
@@ -139,7 +180,7 @@ export const Home: React.FC<HomeProps> = ({ setPage }) => {
               We build ecosystems that empower your workforce to collaborate securely from anywhere, leveraging the full power of Microsoft 365.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
@@ -200,12 +241,12 @@ export const Home: React.FC<HomeProps> = ({ setPage }) => {
               <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">Ready to Secure Your Microsoft Cloud?</h2>
               <p className="text-blue-100 text-xl font-medium">Join thousands of enterprises optimizing their modern workspace with IT Partner.</p>
               <div className="pt-4">
-                <Button 
-                  size="lg" 
-                  className="bg-white text-[#0056D2] hover:bg-slate-50 px-12 py-5 text-lg" 
+                <Button
+                  size="lg"
+                  className="bg-white text-slate-900 hover:text-[#0056D2] hover:bg-white px-12 py-5 text-lg transition-colors border-none group"
                   onClick={() => setPage('CONTACT')}
                 >
-                  Request Consultation <ArrowRight className="ml-2 w-5 h-5" />
+                  Request Consultation <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>
             </div>

@@ -7,17 +7,31 @@ import { PageType } from '../../types';
 interface NavbarProps {
   currentPage: PageType;
   setPage: (page: PageType) => void;
+  isHomePage?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage, isHomePage = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      // Only apply scroll effect on home page. Other pages are always solid.
+      if (isHomePage) {
+        // Switch to solid background after scrolling past the hero section (approx 100vh)
+        // Using window.innerHeight - 80px (navbar height) as threshold
+        setScrolled(window.scrollY > window.innerHeight - 80);
+      } else {
+        setScrolled(true);
+      }
+    };
+
+    // Initial check
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const navItems = [
     { label: 'Solutions', page: 'HOME' as PageType },
@@ -26,20 +40,24 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
     { label: 'Contact', page: 'CONTACT' as PageType },
   ];
 
+  // Transparent/Glass state is active only on Home page when at the top
+  const isTransparent = isHomePage && !scrolled;
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'
-    }`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isTransparent ? 'bg-white/5 backdrop-blur-md border-b border-white/10 py-5' : 'bg-white shadow-md py-3'
+      }`}>
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
-        <div 
+        <div
           className="flex items-center space-x-2 cursor-pointer group"
           onClick={() => setPage('HOME')}
         >
-          <div className="w-10 h-10 bg-[#0056D2] rounded-lg flex items-center justify-center group-hover:bg-[#0041A3] transition-colors">
+          <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${isTransparent ? 'bg-white/20 group-hover:bg-white/30' : 'bg-[#0056D2] group-hover:bg-[#0041A3]'
+            }`}>
             <span className="text-white font-bold text-xl">ITP</span>
           </div>
-          <span className="font-bold text-xl text-[#0A1B3D]">Partner</span>
+          <span className={`font-bold text-xl transition-colors ${isTransparent ? 'text-white' : 'text-[#0A1B3D]'
+            }`}>Partner</span>
         </div>
 
         {/* Desktop Menu */}
@@ -48,9 +66,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
             <button
               key={item.label}
               onClick={() => setPage(item.page)}
-              className={`text-sm font-medium transition-colors hover:text-[#0056D2] ${
-                currentPage === item.page ? 'text-[#0056D2]' : 'text-slate-600'
-              }`}
+              className={`text-sm font-medium transition-colors ${currentPage === item.page
+                  ? (isTransparent ? 'text-white font-bold' : 'text-[#0056D2]')
+                  : (isTransparent ? 'text-white/80 hover:text-white' : 'text-slate-600 hover:text-[#0056D2]')
+                }`}
             >
               {item.label}
             </button>
@@ -61,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <button className={`md:hidden ${isTransparent ? 'text-white' : 'text-slate-900'}`} onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
