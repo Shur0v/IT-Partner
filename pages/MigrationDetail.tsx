@@ -88,7 +88,7 @@ export const MigrationDetail: React.FC<MigrationProps> = ({ setPage }) => {
               { step: '05', title: 'Support', desc: 'Day-one post-migration hypercare for your team.' }
             ].map((item) => (
               <div key={item.step} className="flex items-center bg-white p-6 rounded-2xl border border-slate-100 hover:border-blue-200 transition-colors">
-                <span className="text-2xl font-black text-slate-200 w-16">{item.step}</span>
+                <span className="text-3xl font-black text-[#0056D2] w-20 opacity-40">{item.step}</span>
                 <div className="flex-1">
                   <h4 className="font-bold text-lg text-[#0A1B3D]">{item.title}</h4>
                   <p className="text-slate-500">{item.desc}</p>
