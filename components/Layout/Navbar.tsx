@@ -49,15 +49,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage, isHomePage
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
         <div
-          className="flex items-center space-x-2 cursor-pointer group"
+          className="flex items-center cursor-pointer group"
           onClick={() => setPage('HOME')}
         >
-          <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${isTransparent ? 'bg-white/20 group-hover:bg-white/30' : 'bg-[#0056D2] group-hover:bg-[#0041A3]'
-            }`}>
-            <span className="text-white font-bold text-xl">ITP</span>
-          </div>
-          <span className={`font-bold text-xl transition-colors ${isTransparent ? 'text-white' : 'text-[#0A1B3D]'
-            }`}>Partner</span>
+          <span className={`font-bold text-2xl tracking-tight transition-colors ${isTransparent ? 'text-white' : 'text-[#0A1B3D]'
+            }`}>IT Partner</span>
         </div>
 
         {/* Desktop Menu */}
@@ -67,8 +63,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage, isHomePage
               key={item.label}
               onClick={() => setPage(item.page)}
               className={`text-sm font-medium transition-colors ${currentPage === item.page
-                  ? (isTransparent ? 'text-white font-bold' : 'text-[#0056D2]')
-                  : (isTransparent ? 'text-white/80 hover:text-white' : 'text-slate-600 hover:text-[#0056D2]')
+                ? (isTransparent ? 'text-white font-bold' : 'text-[#0056D2]')
+                : (isTransparent ? 'text-white/80 hover:text-white' : 'text-slate-600 hover:text-[#0056D2]')
                 }`}
             >
               {item.label}
