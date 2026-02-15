@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-4">
             <div className="flex items-center space-x-2 mb-6">
               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-[#0056D2] font-bold text-xl">ITP</span>
+                <span className="text-[#0056D2] font-bold text-xl">IT</span>
               </div>
               <span className="font-bold text-2xl">Partner</span>
             </div>
@@ -47,8 +47,8 @@ export const Footer: React.FC = () => {
             <div className="space-y-4">
               <h4 className="font-bold text-lg">Support</h4>
               <p className="text-sm text-slate-400">24/7 Global Helpdesk available for all managed clients.</p>
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="inline-flex items-center space-x-2 bg-[#0056D2] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#0041A3] transition-colors"
               >
                 <span>Helpdesk Portal</span>
